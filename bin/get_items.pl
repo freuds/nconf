@@ -70,22 +70,25 @@ if($opt_i){
 &logger(4,"Build the list of attributes to display");
 my %attr_restrict;
 if($opt_a){
+#    no strict 'refs';
     &logger(5,"Reading attribute(s) selection");
     my @attr_restrict = ();
     if($opt_a eq "VISIBLE") {
         &logger(5,"Keyword 'VISIBLE' found");
-        my %conf_attrs = getConfigAttrs();
-        foreach my $attr (keys(%{%conf_attrs->{$opt_c}})){
+        my $conf_attrs = getConfigAttrs();
+	foreach my $attr (keys(%{$conf_attrs->{$opt_c}})){
             unless($attr){next}
+            my %conf_attrs = getConfigAttrs();
             if($conf_attrs{$opt_c}->{$attr}->{'visible'} eq "yes"){
                 push(@attr_restrict, $attr);
             }
         }
     }elsif($opt_a eq "NAGIOS") {
         &logger(5,"Keyword 'NAGIOS' found");
-        my %conf_attrs = getConfigAttrs();
-        foreach my $attr (keys(%{%conf_attrs->{$opt_c}})){
+        my $conf_attrs = getConfigAttrs();
+        foreach my $attr (keys(%{$conf_attrs->{$opt_c}})){
             unless($attr){next}
+            my %conf_attrs = getConfigAttrs();
             if($conf_attrs{$opt_c}->{$attr}->{'write_to_conf'} eq "yes"){
                 push(@attr_restrict, $attr);
             }
@@ -216,7 +219,8 @@ if($opt_e){
     foreach my $item (@csv_items){
         my $csv_record =  undef;
         foreach my $attr (keys(%csv_attrs)){
-            $csv_record = $csv_record.%{$item}->{$attr}.$csv_separator;
+#            $csv_record = $csv_record.%{$item}->{$attr}.$csv_separator;
+	    $csv_record = $csv_record.$item->{$attr}.$csv_separator;
         }
         $csv_record =~ s/$csv_separator$//;
         print "$csv_record\n";

@@ -1,11 +1,13 @@
 NConf README
 ============
 
+**NConf is not dead.** It's just no longer developed by the original developer(s). Here is the most current NConf build, maintained by Robbie Ferguson for NEMS Linux.
+
 NConf homepage:
 http://www.nconf.org/
 
 NEMS homepage:
-http://baldnerd.com/nems/
+https://nemslinux.com/
 
 **THIS VERSION HAS BEEN RE-WORKED BY ROBBIE FERGUSON TO OPERATE UNDER PHP 7.0+ / mySQLi**
 
